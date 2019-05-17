@@ -22,18 +22,27 @@ int main() {
 
     LRU lru;
     Process process("Own", 0, &lru);
+
+    std::vector<Page> pages;
+    pages.reserve(2000);
+    pages.resize(10, {&process});
+
     Page pageOwn(&process);
 
     WorkingSet algo;
     Proportional addAlgo;
     Processor processor(100, &algo, &addAlgo);
-    processor.addProcess("Test", 1);
+    processor.addProcess("Test", 2);
     processor.addProcess("Test2", 2);
     processor.addProcess("Test3", 5);
     processor.addProcess(process);
 
+    for(int i=0; i<3*pages.size(); i++) {
+        processor.resolveCall(Call(&pages[i%pages.size()]));
+    }
+
     Page page(&*processor.processesVal.begin());
-    processor.allocateFrames();
+    processor.allocateFramesAfterAdd();
 
     for(Process &p : processor.processes) {
         std::cout<<p.getName()<<" "<<p.getFramesAmount()<<std::endl;

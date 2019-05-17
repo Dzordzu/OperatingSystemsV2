@@ -3,6 +3,7 @@
 //
 
 #include "OperatingSystems/Algorithms/FrameAllocation/WorkingSet.h"
+#include <iostream>
 
 void OperatingSystems::Algorithms::FrameAllocation::WorkingSet::allocateFrames() {
 
@@ -17,6 +18,7 @@ void OperatingSystems::Algorithms::FrameAllocation::WorkingSet::allocateFrames()
     }
 
     for(auto usage : usages) {
+        std::cout<<usage.first->getName()<<" after allocation: "<<usage.second<<std::endl;
         setFramesAmount(*usage.first, usage.second);
     }
 

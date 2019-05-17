@@ -3,8 +3,9 @@
 //
 
 #include "OperatingSystems/Processor/Processor.h"
+#include <iostream>
 
-void OperatingSystems::Processor::Processor::resolveCall(OperatingSystems::Processor::Call &call) {
+void OperatingSystems::Processor::Processor::resolveCall(Call call) {
 
     framesAlgorithm->alwaysRun(*call.getPage());
 
@@ -17,6 +18,7 @@ void OperatingSystems::Processor::Processor::resolveCall(OperatingSystems::Proce
     if(allocationsCounter == framesAllocationFrequency) {
         allocationsCounter = 0;
         framesAlgorithm->allocateFrames();
+        std::cout<<"Frames allocated "<<std::endl;
     }
 }
 void OperatingSystems::Processor::Processor::allocateFrames() {
@@ -56,4 +58,7 @@ void OperatingSystems::Processor::Processor::addProcess(OperatingSystems::Proces
 }
 void OperatingSystems::Processor::Processor::setFramesAllocationFrequency(int framesAllocationFrequency) {
     Processor::framesAllocationFrequency = framesAllocationFrequency;
+}
+void OperatingSystems::Processor::Processor::allocateFramesAfterAdd() {
+    framesAlgorithmOnAdd->allocateFrames();
 }

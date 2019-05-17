@@ -17,6 +17,7 @@ namespace OperatingSystems {
             class WorkingSet : public Algorithm {
                 std::vector<std::reference_wrapper<Page>> recentPages;
             public:
+                WorkingSet() { processor->setFramesAllocationFrequency(processor->getFramesAmount()); }
                 void alwaysRun(Page &page) override;
                 void allocateFrames() override;
             };

@@ -14,6 +14,6 @@ void OperatingSystems::Algorithms::FrameAllocation::Proportional::allocateFrames
 
     for(Process &p : processor->processes) {
         double percentage = (double)p.getWeight()/(double)weightTotal;
-        setFramesAmount(p, (int)(processor->getFramesAmount() * percentage));
+        setFramesAmount(p, (int)std::ceil(processor->getFramesAmount() * percentage));
     }
 }

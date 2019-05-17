@@ -20,12 +20,19 @@
 
 namespace OperatingSystems {
 
+    namespace Algorithms {
+        namespace FrameAllocation {
+            class ErrorsControlling;
+        }
+    }
+
     namespace Processor {
 
 
         class Process {
             using PagesAlgorithm = OperatingSystems::Algorithms::PageReplacement::Algorithm;
             using FramesAlgorithm = OperatingSystems::Algorithms::FrameAllocation::Algorithm;
+            using ErrorsControlling = OperatingSystems::Algorithms::FrameAllocation::ErrorsControlling;
             friend Page;
             friend FramesAlgorithm;
 
@@ -33,6 +40,12 @@ namespace OperatingSystems {
             std::string name;
             std::vector<Frame> frames;
             uint_fast32_t weight = 0;
+
+            /*
+             * @XXX Dangerous zone: to fix conceptually
+             */
+            friend ErrorsControlling;
+            int errors = 0;
 
 
         public:

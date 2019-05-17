@@ -5,10 +5,12 @@
 #ifndef OPERATINGSYSTEMS_ALGORITHMS_FRAMEALLOCATION_WORKINGSET_H
 #define OPERATINGSYSTEMS_ALGORITHMS_FRAMEALLOCATION_WORKINGSET_H
 
+#include <map>
 #include <vector>
 #include <functional>
 #include "Algorithm.h"
 #include <OperatingSystems/Processor/Processor.h>
+#include <iostream>
 
 namespace OperatingSystems {
     namespace Algorithms {

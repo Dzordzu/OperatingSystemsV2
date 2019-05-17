@@ -27,6 +27,9 @@ namespace OperatingSystems {
             using LRU =  Algorithms::PageReplacement::LRU;
 
             friend FramesAlgorithm;
+            /*
+             * @XXX EXACTLY!
+             */
         public:
             std::list<Process> processesVal;
             std::vector<std::reference_wrapper<Process>> processes;
@@ -34,6 +37,7 @@ namespace OperatingSystems {
             int framesAmount = 0;
             int freeFrames = 0;
             FramesAlgorithm * framesAlgorithm;
+            FramesAlgorithm * framesAlgorithmOnAdd;
             std::list<std::unique_ptr<PagesAlgorithm>> pagesAlgorithms;
             std::list<Page> pages;
 
@@ -41,14 +45,18 @@ namespace OperatingSystems {
             int allocationsCounter = 0;
 
         public:
-            Processor(int framesAmount, FramesAlgorithm *framesAlgorithm);
-            virtual void resolveCall(Call & call);
+            Processor(int framesAmount, FramesAlgorithm *framesAlgorithm, FramesAlgorithm *framesAlgorithmOnAdd);
+            Processor(int framesAmount, FramesAlgorithm *framesAlgorithm) : Processor(framesAmount, framesAlgorithm, framesAlgorithm) {}
+            virtual void resolveCall(Call call);
             void allocateFrames();
+            void allocateFramesAfterAdd();
             void addProcess(const std::string name, int pagesAmount);
             void addProcess(Process &process);
             int getFramesAmount() const;
             int getFreeFramesAmount() const;
             void setFramesAllocationFrequency(int framesAllocationFrequency);
+            int getFramesAllocationFrequency() const;
+            const std::string name = "MASAKRATOR V1488XD (controller JB2GMD)";
         };
 
     }

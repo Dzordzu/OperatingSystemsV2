@@ -7,6 +7,8 @@
 #include <OperatingSystems/Algorithms/PageReplacement/LRU.h>
 #include <OperatingSystems/Algorithms/FrameAllocation/Equal.h>
 #include <OperatingSystems/Algorithms/FrameAllocation/Proportional.h>
+#include <OperatingSystems/Algorithms/FrameAllocation/WorkingSet.h>
+#include <OperatingSystems/Algorithms/FrameAllocation/ErrorsControlling.h>
 
 int main() {
 
@@ -15,29 +17,49 @@ int main() {
     using OperatingSystems::Processor::Page;
     using OperatingSystems::Processor::Call;
     using OperatingSystems::Algorithms::PageReplacement::LRU;
-    using OperatingSystems::Algorithms::FrameAllocation::Equal;
-    using OperatingSystems::Algorithms::FrameAllocation::Proportional;
+
+    using namespace OperatingSystems::Algorithms::FrameAllocation;
 
     LRU lru;
     Process process("Own", 0, &lru);
-    Page pageOwn(&process);
 
-    Proportional algo;
-    Processor processor(100, &algo);
-    processor.addProcess("Test", 1);
-    processor.addProcess("Test2", 2);
-    processor.addProcess("Test3", 5);
+    std::vector<Page> pages;
+    pages.reserve(2000);
+    pages.resize(65, {&process});
+
+    ErrorsControlling algo;
+    Proportional addAlgo;
+
+
+    Processor processor(50, &algo, &addAlgo);
+    processor.setFramesAllocationFrequency(10);
+    std::cout<<"Processor name: "<<algo.getProcessorName()<<"; refresh after "<<processor.getFramesAllocationFrequency()<<std::endl;
+
+    processor.addProcess("Test", 10);
+    processor.addProcess("Test2", 20);
+    processor.addProcess("Test3", 50);
     processor.addProcess(process);
+    processor.allocateFramesAfterAdd();
 
-    Page page(&*processor.processesVal.begin());
-    processor.allocateFrames();
+
+    for(Page & page : pages) {
+        processor.resolveCall(Call(&page));
+    }
+
+
+
+
+
+
+//    Page page(&*processor.processesVal.begin());
+//    processor.allocateFramesAfterAdd();
 
     for(Process &p : processor.processes) {
         std::cout<<p.getName()<<" "<<p.getFramesAmount()<<std::endl;
     }
 
-    Call call(&page);
-    processor.resolveCall(call);
+//    Call call(&page);
+//    processor.resolveCall(call);
 
 
 

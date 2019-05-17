@@ -5,6 +5,7 @@
 #ifndef OPERATINGSYSTEMS_ALGORITHMS_FRAMEALLOCATION_PROPORTIONAL_H
 #define OPERATINGSYSTEMS_ALGORITHMS_FRAMEALLOCATION_PROPORTIONAL_H
 
+#include <cmath>
 #include "Algorithm.h"
 #include <OperatingSystems/Processor/Processor.h>
 

@@ -3,7 +3,7 @@
 //
 
 #include "OperatingSystems/Processor/Processor.h"
-#include <iostream>
+//#include <iostream>
 
 void OperatingSystems::Processor::Processor::resolveCall(Call call) {
 
@@ -19,7 +19,7 @@ void OperatingSystems::Processor::Processor::resolveCall(Call call) {
     if(allocationsCounter == framesAllocationFrequency) {
         allocationsCounter = 0;
         framesAlgorithm->allocateFrames();
-        std::cout<<"Frames allocated "<<std::endl;
+//        std::cout<<"Frames allocated "<<std::endl;
     }
 }
 void OperatingSystems::Processor::Processor::allocateFrames() {

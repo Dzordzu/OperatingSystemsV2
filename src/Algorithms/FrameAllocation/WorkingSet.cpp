@@ -18,7 +18,6 @@ void OperatingSystems::Algorithms::FrameAllocation::WorkingSet::allocateFrames()
     }
 
     for(auto usage : usages) {
-        std::cout<<usage.first->getName()<<" after allocation: "<<usage.second<<std::endl;
         setFramesAmount(*usage.first, usage.second);
     }
 

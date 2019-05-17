@@ -5,6 +5,18 @@
 #include "OperatingSystems/Algorithms/FrameAllocation/ErrorsControlling.h"
 
 void OperatingSystems::Algorithms::FrameAllocation::ErrorsControlling::allocateFrames() {
+    std::sort(getProcesses().begin(), getProcesses().end(),[](std::reference_wrapper<Process> p1, std::reference_wrapper<Process> p2)->bool {return p1.get().errors>p2.get().errors;});
+
+    for(Process & p : getProcesses()) {
+        double errorsFrequency = (double)p.errors/(double)processor->getFramesAllocationFrequency();
+        if(errorsFrequency < min) {
+            setFramesAmount(p, (int)(p.getFramesAmount()*(1.0-stepReduction)));
+        }
+        else if(errorsFrequency > max) {
+            setFramesAmount(p, p.getFramesAmount()+guaranteedStepAddition);
+            setFramesAmount(p, (int)(p.getFramesAmount()*(1+stepAddition)));
+        }
+    }
 
 }
 void OperatingSystems::Algorithms::FrameAllocation::ErrorsControlling::setMin(double min) {
@@ -15,7 +27,17 @@ void OperatingSystems::Algorithms::FrameAllocation::ErrorsControlling::setMax(do
 }
 void
 OperatingSystems::Algorithms::FrameAllocation::ErrorsControlling::pageError(OperatingSystems::Processor::Page &page) {
-    if(errors.find(page.getProcess()) == errors.end()) {
-        errors.insert({page.getProcess(), 1});
-    }
+    page.getProcess()->errors++;
+}
+
+
+void OperatingSystems::Algorithms::FrameAllocation::ErrorsControlling::setStepReduction(double stepReduction) {
+    ErrorsControlling::stepReduction = stepReduction;
+}
+void OperatingSystems::Algorithms::FrameAllocation::ErrorsControlling::setGuaranteedStepAddition(
+        int guaranteedStepAddition) {
+    ErrorsControlling::guaranteedStepAddition = guaranteedStepAddition;
+}
+void OperatingSystems::Algorithms::FrameAllocation::ErrorsControlling::setStepAddition(double stepAddition) {
+    ErrorsControlling::stepAddition = stepAddition;
 }

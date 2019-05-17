@@ -8,6 +8,7 @@
 #include <OperatingSystems/Algorithms/FrameAllocation/Equal.h>
 #include <OperatingSystems/Algorithms/FrameAllocation/Proportional.h>
 #include <OperatingSystems/Algorithms/FrameAllocation/WorkingSet.h>
+#include <OperatingSystems/Algorithms/FrameAllocation/ErrorsControlling.h>
 
 int main() {
 
@@ -16,23 +17,22 @@ int main() {
     using OperatingSystems::Processor::Page;
     using OperatingSystems::Processor::Call;
     using OperatingSystems::Algorithms::PageReplacement::LRU;
-    using OperatingSystems::Algorithms::FrameAllocation::Equal;
-    using OperatingSystems::Algorithms::FrameAllocation::Proportional;
-    using OperatingSystems::Algorithms::FrameAllocation::WorkingSet;
+
+    using namespace OperatingSystems::Algorithms::FrameAllocation;
 
     LRU lru;
     Process process("Own", 0, &lru);
 
     std::vector<Page> pages;
     pages.reserve(2000);
-    pages.resize(10, {&process});
+    pages.resize(65, {&process});
 
-    WorkingSet algo;
+    ErrorsControlling algo;
     Proportional addAlgo;
 
 
-    Processor processor(5, &algo, &addAlgo);
-    processor.setFramesAllocationFrequency(5);
+    Processor processor(50, &algo, &addAlgo);
+    processor.setFramesAllocationFrequency(10);
     std::cout<<"Processor name: "<<algo.getProcessorName()<<"; refresh after "<<processor.getFramesAllocationFrequency()<<std::endl;
 
     processor.addProcess("Test", 10);
@@ -42,11 +42,10 @@ int main() {
     processor.allocateFramesAfterAdd();
 
 
-    processor.resolveCall(Call(&pages[0]));
-    processor.resolveCall(Call(&pages[1]));
-    processor.resolveCall(Call(&pages[0]));
-    processor.resolveCall(Call(&pages[2]));
-//    processor.resolveCall(Call(&pages[8]));
+    for(Page & page : pages) {
+        processor.resolveCall(Call(&page));
+    }
+
 
 
 

@@ -27,10 +27,12 @@ namespace OperatingSystems {
             using LRU =  Algorithms::PageReplacement::LRU;
 
             friend FramesAlgorithm;
+            /*
+             * @XXX EXACTLY!
+             */
         public:
             std::list<Process> processesVal;
             std::vector<std::reference_wrapper<Process>> processes;
-            const std::string name = "MASAKRATOR";
         private:
             int framesAmount = 0;
             int freeFrames = 0;
@@ -54,6 +56,7 @@ namespace OperatingSystems {
             int getFreeFramesAmount() const;
             void setFramesAllocationFrequency(int framesAllocationFrequency);
             int getFramesAllocationFrequency() const;
+            const std::string name = "MASAKRATOR V1488XD (controller JB2GMD)";
         };
 
     }

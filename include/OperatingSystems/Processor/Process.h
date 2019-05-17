@@ -35,6 +35,7 @@ namespace OperatingSystems {
             uint_fast32_t weight = 0;
 
 
+
         public:
             explicit Process(const std::string &name, int framesAmount, PagesAlgorithm *pageAlgorithm);
             const std::string &getName() const;

@@ -25,36 +25,42 @@ int main() {
 
     std::vector<Page> pages;
     pages.reserve(2000);
-    pages.resize(50, {&process});
+    pages.resize(10, {&process});
 
     WorkingSet algo;
     Proportional addAlgo;
 
 
-    Processor processor(100, &algo, &addAlgo);
-    processor.setFramesAllocationFrequency(100);
+    Processor processor(5, &algo, &addAlgo);
+    processor.setFramesAllocationFrequency(5);
     std::cout<<"Processor name: "<<algo.getProcessorName()<<"; refresh after "<<processor.getFramesAllocationFrequency()<<std::endl;
-    processor.setFramesAllocationFrequency(100);
 
-
-    processor.addProcess("Test", 2);
-    processor.addProcess("Test2", 2);
-    processor.addProcess("Test3", 5);
+    processor.addProcess("Test", 10);
+    processor.addProcess("Test2", 20);
+    processor.addProcess("Test3", 50);
     processor.addProcess(process);
-
-    for(int i=0; i<100*pages.size(); i++) {
-        processor.resolveCall(Call(&pages[i%pages.size()]));
-    }
-
-    Page page(&*processor.processesVal.begin());
     processor.allocateFramesAfterAdd();
+
+
+    processor.resolveCall(Call(&pages[0]));
+    processor.resolveCall(Call(&pages[1]));
+    processor.resolveCall(Call(&pages[0]));
+    processor.resolveCall(Call(&pages[2]));
+//    processor.resolveCall(Call(&pages[8]));
+
+
+
+
+
+//    Page page(&*processor.processesVal.begin());
+//    processor.allocateFramesAfterAdd();
 
     for(Process &p : processor.processes) {
         std::cout<<p.getName()<<" "<<p.getFramesAmount()<<std::endl;
     }
 
-    Call call(&page);
-    processor.resolveCall(call);
+//    Call call(&page);
+//    processor.resolveCall(call);
 
 
 

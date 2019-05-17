@@ -14,6 +14,7 @@ void OperatingSystems::Processor::Processor::resolveCall(Call call) {
     }
 
     if(allocationsCounter >= 0) allocationsCounter++;
+//    std::cout<<"Time left to allocations"<<framesAllocationFrequency - allocationsCounter;
 
     if(allocationsCounter == framesAllocationFrequency) {
         allocationsCounter = 0;

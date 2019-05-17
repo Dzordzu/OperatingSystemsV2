@@ -20,7 +20,6 @@ namespace OperatingSystems{
             Page(OperatingSystems::Processor::Process *process);
             Page(Page const &page);
             Process *getProcess() const;
-            const Process *getConstProcess() const;
             ~Page();
         };
     }

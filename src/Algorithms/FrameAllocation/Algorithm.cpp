@@ -6,12 +6,8 @@
 #include "OperatingSystems/Algorithms/FrameAllocation/Algorithm.h"
 #include <OperatingSystems/Processor/Processor.h>
 
-void OperatingSystems::Algorithms::FrameAllocation::Algorithm::setFramesAmount(Process &process, int amount) const {
-    amount -= process.getFramesAmount();
-
-    if(amount > processor->getFreeFramesAmount()) amount = processor->getFreeFramesAmount();
-
-    processor->freeFrames -= amount;
+void OperatingSystems::Algorithms::FrameAllocation::Algorithm::setFramesAmount(Process &process, int amount) {
+    processor->freeFrames -= (amount-process.getFramesAmount());
     process.frames.resize(amount, Frame());
 }
 std::vector<std::reference_wrapper<OperatingSystems::Processor::Process>> & OperatingSystems::Algorithms::FrameAllocation::Algorithm::getProcesses() {

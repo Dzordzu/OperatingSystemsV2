@@ -17,4 +17,7 @@ OperatingSystems::Processor::Page::Page(const OperatingSystems::Processor::Page 
     this->process = page.process;
     process->weight += Page::weight;
 }
+const OperatingSystems::Processor::Process *OperatingSystems::Processor::Page::getConstProcess() const {
+    return process;
+}
 

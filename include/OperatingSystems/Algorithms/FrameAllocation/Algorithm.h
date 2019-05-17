@@ -26,7 +26,7 @@ namespace OperatingSystems {
             protected:
                 friend Processor;
                 Processor * processor;
-                void setFramesAmount(Process &process, int amount);
+                void setFramesAmount(Process &process, int amount) const;
                 std::vector<std::reference_wrapper<Process>> & getProcesses();
             public:
                 Algorithm() = default;

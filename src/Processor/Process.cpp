@@ -65,3 +65,6 @@ int OperatingSystems::Processor::Process::getFramesAmount() {
 uint_fast32_t OperatingSystems::Processor::Process::getWeight() const {
     return weight;
 }
+bool OperatingSystems::Processor::Process::operator<(const OperatingSystems::Processor::Process &process) {
+    return name < process.name;
+}

@@ -25,19 +25,24 @@ int main() {
 
     std::vector<Page> pages;
     pages.reserve(2000);
-    pages.resize(10, {&process});
-
-    Page pageOwn(&process);
+    pages.resize(50, {&process});
 
     WorkingSet algo;
     Proportional addAlgo;
+
+
     Processor processor(100, &algo, &addAlgo);
+    processor.setFramesAllocationFrequency(100);
+    std::cout<<"Processor name: "<<algo.getProcessorName()<<"; refresh after "<<processor.getFramesAllocationFrequency()<<std::endl;
+    processor.setFramesAllocationFrequency(100);
+
+
     processor.addProcess("Test", 2);
     processor.addProcess("Test2", 2);
     processor.addProcess("Test3", 5);
     processor.addProcess(process);
 
-    for(int i=0; i<3*pages.size(); i++) {
+    for(int i=0; i<100*pages.size(); i++) {
         processor.resolveCall(Call(&pages[i%pages.size()]));
     }
 

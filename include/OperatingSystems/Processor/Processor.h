@@ -30,6 +30,7 @@ namespace OperatingSystems {
         public:
             std::list<Process> processesVal;
             std::vector<std::reference_wrapper<Process>> processes;
+            const std::string name = "MASAKRATOR";
         private:
             int framesAmount = 0;
             int freeFrames = 0;
@@ -52,6 +53,7 @@ namespace OperatingSystems {
             int getFramesAmount() const;
             int getFreeFramesAmount() const;
             void setFramesAllocationFrequency(int framesAllocationFrequency);
+            int getFramesAllocationFrequency() const;
         };
 
     }

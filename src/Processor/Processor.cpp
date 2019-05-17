@@ -62,3 +62,6 @@ void OperatingSystems::Processor::Processor::setFramesAllocationFrequency(int fr
 void OperatingSystems::Processor::Processor::allocateFramesAfterAdd() {
     framesAlgorithmOnAdd->allocateFrames();
 }
+int OperatingSystems::Processor::Processor::getFramesAllocationFrequency() const {
+    return framesAllocationFrequency;
+}

@@ -13,5 +13,8 @@ void OperatingSystems::Algorithms::FrameAllocation::Algorithm::setFramesAmount(P
 std::vector<std::reference_wrapper<OperatingSystems::Processor::Process>> & OperatingSystems::Algorithms::FrameAllocation::Algorithm::getProcesses() {
     return processor->processes;
 }
+const std::string OperatingSystems::Algorithms::FrameAllocation::Algorithm::getProcessorName() {
+    return processor->name;
+}
 
 

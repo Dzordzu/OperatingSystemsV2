@@ -16,6 +16,7 @@ namespace OperatingSystems {
             class WorkingSet : public Algorithm {
                 std::vector<std::reference_wrapper<Page>> recentPages;
             public:
+                void alwaysRun(Page &page) override;
                 void allocateFrames() override;
             };
         }

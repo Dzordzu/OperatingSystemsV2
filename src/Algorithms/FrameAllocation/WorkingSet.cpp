@@ -7,3 +7,6 @@
 void OperatingSystems::Algorithms::FrameAllocation::WorkingSet::allocateFrames() {
 
 }
+void OperatingSystems::Algorithms::FrameAllocation::WorkingSet::alwaysRun(OperatingSystems::Processor::Page &page) {
+    Algorithm::alwaysRun(page);
+}

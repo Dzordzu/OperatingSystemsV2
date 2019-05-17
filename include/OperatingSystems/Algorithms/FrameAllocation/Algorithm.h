@@ -32,6 +32,7 @@ namespace OperatingSystems {
                 Algorithm() = default;
                 virtual void allocateFrames() = 0;
                 virtual void pageError(Page & page) {};
+                virtual void alwaysRun(Page &page) {};
             };
 
 

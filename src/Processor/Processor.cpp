@@ -6,6 +6,8 @@
 
 void OperatingSystems::Processor::Processor::resolveCall(OperatingSystems::Processor::Call &call) {
 
+    framesAlgorithm->alwaysRun(*call.getPage());
+
     if(call.getPage()->getProcess()->resolvePage(*call.getPage())) {
         framesAlgorithm->pageError(*call.getPage());
     }

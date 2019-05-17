@@ -32,17 +32,18 @@ void OperatingSystems::Processor::Processor::addProcess(const std::string name, 
     for(int i=0; i<pagesAmount; i++) {
         pages.emplace_back(Page(&*processesVal.rbegin()));
     }
-    allocateFrames();
+    framesAlgorithmOnAdd->allocateFrames();
 }
 
 
 
-OperatingSystems::Processor::Processor::Processor(int framesAmount,
-                                                  OperatingSystems::Processor::Processor::FramesAlgorithm *framesAlgorithm)
-        : freeFrames(framesAmount), framesAlgorithm(framesAlgorithm), framesAmount(framesAmount) {
+OperatingSystems::Processor::Processor::Processor(int framesAmount, FramesAlgorithm *framesAlgorithm,
+                                                  FramesAlgorithm *framesAlgorithmOnAdd)
+        : freeFrames(framesAmount), framesAlgorithm(framesAlgorithm), framesAmount(framesAmount), framesAlgorithmOnAdd(framesAlgorithmOnAdd) {
     if(framesAmount == 0) throw std::logic_error("No frames");
     if(framesAlgorithm == nullptr) throw std::logic_error("Couldn't find frames allocation algorithm");
     framesAlgorithm->processor = this;
+    framesAlgorithmOnAdd->processor = this;
 }
 int OperatingSystems::Processor::Processor::getFramesAmount() const {
     return framesAmount;

@@ -25,7 +25,8 @@ int main() {
     Page pageOwn(&process);
 
     WorkingSet algo;
-    Processor processor(100, &algo);
+    Proportional addAlgo;
+    Processor processor(100, &algo, &addAlgo);
     processor.addProcess("Test", 1);
     processor.addProcess("Test2", 2);
     processor.addProcess("Test3", 5);

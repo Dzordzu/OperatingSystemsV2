@@ -7,6 +7,7 @@
 #include <OperatingSystems/Algorithms/PageReplacement/LRU.h>
 #include <OperatingSystems/Algorithms/FrameAllocation/Equal.h>
 #include <OperatingSystems/Algorithms/FrameAllocation/Proportional.h>
+#include <OperatingSystems/Algorithms/FrameAllocation/WorkingSet.h>
 
 int main() {
 
@@ -17,12 +18,13 @@ int main() {
     using OperatingSystems::Algorithms::PageReplacement::LRU;
     using OperatingSystems::Algorithms::FrameAllocation::Equal;
     using OperatingSystems::Algorithms::FrameAllocation::Proportional;
+    using OperatingSystems::Algorithms::FrameAllocation::WorkingSet;
 
     LRU lru;
     Process process("Own", 0, &lru);
     Page pageOwn(&process);
 
-    Proportional algo;
+    WorkingSet algo;
     Processor processor(100, &algo);
     processor.addProcess("Test", 1);
     processor.addProcess("Test2", 2);

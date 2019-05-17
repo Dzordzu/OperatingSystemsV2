@@ -6,6 +6,21 @@
 
 void OperatingSystems::Algorithms::FrameAllocation::WorkingSet::allocateFrames() {
 
+    std::map<Process *, int> usages;
+
+    for(Process & process : getProcesses()) {
+        usages.insert({&process, 0});
+    }
+
+    for(Page & p: recentPages) {
+        usages.at(p.getProcess())++;
+    }
+
+    for(auto usage : usages) {
+        setFramesAmount(*usage.first, usage.second);
+    }
+
+    this->recentPages.clear();
 }
 void OperatingSystems::Algorithms::FrameAllocation::WorkingSet::alwaysRun(OperatingSystems::Processor::Page &page) {
 

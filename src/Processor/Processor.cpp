@@ -67,3 +67,6 @@ void OperatingSystems::Processor::Processor::allocateFramesAfterAdd() {
 int OperatingSystems::Processor::Processor::getFramesAllocationFrequency() const {
     return framesAllocationFrequency;
 }
+void OperatingSystems::Processor::Processor::setErrorCounter(OperatingSystems::Processor::ErrorCounter *errorCounter) {
+    Processor::errorCounter = errorCounter;
+}

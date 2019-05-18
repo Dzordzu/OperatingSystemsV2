@@ -33,7 +33,12 @@ int main() {
 
     Processor processor(50, &algo, &addAlgo);
     processor.setFramesAllocationFrequency(10);
-    std::cout<<"Processor name: "<<algo.getProcessorName()<<"; refresh after "<<processor.getFramesAllocationFrequency()<<std::endl;
+    std::cout<<"Processor name: "<<algo.getProcessorName()<<":"<<std::endl;
+    std::cout<<"Frames: "<<processor.getFramesAmount()<<std::endl;
+    std::cout<<"Free Frames Amount: "<<processor.getFreeFramesAmount()<<std::endl;
+    std::cout<<"Frame allocation: ";
+    if(processor.getFramesAllocationFrequency() == -1) std::cout<<"never";
+    else std::cout<<"after "<<processor.getFramesAllocationFrequency()<<" calls"<<std::endl;
 
     processor.addProcess("Test", 10);
     processor.addProcess("Test2", 20);

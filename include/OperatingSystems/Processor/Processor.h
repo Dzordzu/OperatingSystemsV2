@@ -41,7 +41,7 @@ namespace OperatingSystems {
             std::list<std::unique_ptr<PagesAlgorithm>> pagesAlgorithms;
             std::list<Page> pages;
 
-            int framesAllocationFrequency = 2; // calls to allocation
+            int framesAllocationFrequency = -1; // calls to allocation
             int allocationsCounter = 0;
 
             ErrorCounter * errorCounter = nullptr;
@@ -58,7 +58,10 @@ namespace OperatingSystems {
             int getFreeFramesAmount() const;
             void setFramesAllocationFrequency(int framesAllocationFrequency);
             int getFramesAllocationFrequency() const;
+            void setErrorCounter(ErrorCounter *errorCounter);
             const std::string name = "MASAKRATOR V1488XD (controller JB2GMD)";
+
+
         };
 
     }

@@ -25,7 +25,7 @@ const std::string OperatingSystems::Simulator::ProcessorInfo::allocationFrequenc
     return result;
 }
 const std::string OperatingSystems::Simulator::ProcessorInfo::processes() const {
-    std::string result = "Processes: \n";
+    std::string result = "Processes: " + std::to_string(processor.getProcesses().size()) + "\n";
 
     for(const Processor::Process &process : processor.getProcesses()) {
         result += process.getName() + ": weight(" + std::to_string(process.getWeight()) + "), framesAmount("

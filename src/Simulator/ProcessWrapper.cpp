@@ -14,3 +14,6 @@ OperatingSystems::Processor::Process& OperatingSystems::Simulator::ProcessWrappe
 OperatingSystems::Simulator::ProcessWrapper::Process *OperatingSystems::Simulator::ProcessWrapper::operator&() {
     return &*process;
 }
+OperatingSystems::Simulator::ProcessWrapper::Process *OperatingSystems::Simulator::ProcessWrapper::operator->() {
+    return &*process;
+}

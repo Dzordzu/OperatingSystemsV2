@@ -24,6 +24,7 @@ namespace OperatingSystems {
 
             Process& operator*();
             Process* operator&();
+            Process* operator->();
 
         };
 

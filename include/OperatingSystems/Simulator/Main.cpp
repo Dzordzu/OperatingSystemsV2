@@ -9,6 +9,7 @@
 #include <OperatingSystems/Algorithms/FrameAllocation/Proportional.h>
 #include <OperatingSystems/Algorithms/FrameAllocation/WorkingSet.h>
 #include <OperatingSystems/Algorithms/FrameAllocation/ErrorsControlling.h>
+#include <OperatingSystems/Processor/ErrorCounter.h>
 #include "ProcessorInfo.h"
 #include "ProcessWrapper.h"
 
@@ -18,10 +19,15 @@ int main() {
     using OperatingSystems::Processor::Processor;
     using OperatingSystems::Processor::Page;
     using OperatingSystems::Processor::Call;
+    using OperatingSystems::Processor::ErrorCounter;
     using OperatingSystems::Algorithms::PageReplacement::LRU;
     using OperatingSystems::Simulator::ProcessWrapper;
 
     using namespace OperatingSystems::Algorithms::FrameAllocation;
+
+    std::vector<std::string> names {
+            "Docker", "MyApp", "OperatingSystems", "Test", "KDE", "NonWindowsApp", "Git", "Inkscape", "Gimp", "Firefox"
+    };
 
     /*
      * Declare processor
@@ -29,13 +35,41 @@ int main() {
     ErrorsControlling algo;
     Proportional addAlgo;
     Processor processor(50, &algo, &addAlgo);
+    processor.setFramesAllocationFrequency(10);
 
     /*
-     * Add processes
+     * Declare processes
      */
-    std::vector<std::string> names {
-        "Docker", "MyApp", "OperatingSystems", "Test", "KDE", "NonWindowsApp", "Git", "Inkscape", "Gimp", "Firefox"
-    };
+
+    std::vector<ProcessWrapper> processes;
+    processes.reserve(10);
+    for(const std::string & name : names) {
+        processes.emplace_back(ProcessWrapper(name));
+    }
+
+    /*
+     * Declare counters
+     */
+    std::vector<ErrorCounter> errorCounters;
+    errorCounters.reserve(12);
+    for(const std::string & name : names) {
+        errorCounters.emplace_back(ErrorCounter(name + " Counter"));
+    }
+    errorCounters.emplace_back(ErrorCounter("General Counter"));
+
+    /*
+     * Connect counters with processes
+     */
+    for(int i=0; i<processes.size(); i++) {
+        processes[i]->setCounter(&errorCounters[i]);
+    }
+
+    /*
+     * Add processes to processor
+     */
+    for(ProcessWrapper & pw : processes) {
+        processor.addProcess(*pw);
+    }
 
     /*
      * Show info
@@ -53,7 +87,7 @@ int main() {
 
 
 
-    processor.setFramesAllocationFrequency(10);
+
 
     processor.addProcess(*process);
     processor.allocateFramesAfterAdd();

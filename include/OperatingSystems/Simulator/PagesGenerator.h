@@ -17,7 +17,7 @@ namespace OperatingSystems {
         class PagesGenerator {
         protected:
             ProcessWrapper & process;
-            static std::random_device device;
+            std::random_device device;
         public:
             explicit PagesGenerator(ProcessWrapper &process);
             std::vector<Processor::Page> generate(uint_fast64_t min, uint_fast64_t max);

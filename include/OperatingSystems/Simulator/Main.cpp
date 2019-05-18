@@ -13,6 +13,7 @@
 #include "ProcessorInfo.h"
 #include "ProcessWrapper.h"
 #include "PagesGenerator.h"
+#include "CallsGenerator.h"
 
 int main() {
 
@@ -22,14 +23,19 @@ int main() {
      * CONFIGURATION
      */
     const uint_fast64_t frames = 50;
-    std::shared_ptr<Algorithm> algorithm = std::make_shared<Algorithm>(new ErrorsControlling);
-    std::shared_ptr<Algorithm> addAlgorithm = std::make_shared<Algorithm>(new Proportional);
+    std::shared_ptr<Algorithm> algorithm(new ErrorsControlling());
+    std::shared_ptr<Algorithm> addAlgorithm(new Proportional());
+
+    std::cout<<(algorithm == nullptr);
+
     const uint_fast64_t allocationFrequency = frames;
     const uint_fast64_t minPages = 100;
     const uint_fast64_t maxPages = 300;
     const uint_fast64_t callsGroups = 300;
     const uint_fast64_t callsGroupCount = 5;
     const uint_fast64_t callsGroupDeviation = 2;
+
+
 
 
 
@@ -45,6 +51,7 @@ int main() {
     using OperatingSystems::Algorithms::PageReplacement::LRU;
     using OperatingSystems::Simulator::ProcessWrapper;
     using OperatingSystems::Simulator::PagesGenerator;
+    using OperatingSystems::Simulator::CallsGenerator;
 
 
     /*
@@ -121,12 +128,12 @@ int main() {
      * Resolve random calls
      */
     CallsGenerator callsGenerator;
-    callsGenerator.setPagesSource()
+    callsGenerator.setPagesSource(pages);
     for(int i=0; i<callsGroups; i++) {
 
         callsGenerator.randomCenter();
-        callsGenerator.deviation(callsGroupDeviation);
-        callsGenerator.population(callsGroupCount);
+        callsGenerator.setDeviation(callsGroupDeviation);
+        callsGenerator.setPopulation(callsGroupCount);
 
         for(Call & call : callsGenerator.generate()) {
             processor.resolveCall(call);

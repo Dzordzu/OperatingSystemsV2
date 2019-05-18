@@ -10,6 +10,7 @@ add_executable ( OperatingSystemsSimulator
 			src/Simulator/ProcessorInfo.cpp
 			src/Simulator/ProcessWrapper.cpp
 			src/Simulator/PagesGenerator.cpp
+			src/Simulator/CallsGenerator.cpp
 	#		src/Simulator/Visual.cpp
 	#		src/Simulator/API.cpp
 	#		src/Simulator/

@@ -5,7 +5,7 @@
 #include "OperatingSystems/Simulator/PagesGenerator.h"
 
 OperatingSystems::Simulator::PagesGenerator::PagesGenerator(
-        const std::vector<ProcessWrapper> &processes) : process(process) {}
+        ProcessWrapper &process) : process(process) {}
 
 
 std::vector<OperatingSystems::Processor::Page>

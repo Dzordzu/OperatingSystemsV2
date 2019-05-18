@@ -100,7 +100,7 @@ int main() {
     std::vector<Page> pages;
     for(ProcessWrapper & pw : processes) {
 
-        PagesGenerator pagesGenerator(p);
+        PagesGenerator pagesGenerator(pw);
         for(Page &p : pagesGenerator.generate(minPages, maxPages)) {
             pages.emplace_back(p);
         }

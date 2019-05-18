@@ -10,6 +10,7 @@
 #include <OperatingSystems/Algorithms/FrameAllocation/WorkingSet.h>
 #include <OperatingSystems/Algorithms/FrameAllocation/ErrorsControlling.h>
 #include "ProcessorInfo.h"
+#include "ProcessWrapper.h"
 
 int main() {
 
@@ -18,25 +19,43 @@ int main() {
     using OperatingSystems::Processor::Page;
     using OperatingSystems::Processor::Call;
     using OperatingSystems::Algorithms::PageReplacement::LRU;
+    using OperatingSystems::Simulator::ProcessWrapper;
 
     using namespace OperatingSystems::Algorithms::FrameAllocation;
 
-    LRU lru;
-    Process process("Own", 0, &lru);
+    /*
+     * Declare processor
+     */
+    ErrorsControlling algo;
+    Proportional addAlgo;
+    Processor processor(50, &algo, &addAlgo);
+
+    /*
+     * Add processes
+     */
+    std::vector<std::string> names {
+        "Docker", "MyApp", "OperatingSystems", "Test", "KDE", "NonWindowsApp", "Git", "Inkscape", "Gimp", "Firefox"
+    };
+
+    /*
+     * Show info
+     */
+    OperatingSystems::Simulator::ProcessorInfo processorInfo(processor);
+
+    ProcessWrapper process("Own");
+
+//    LRU lru;
+//    Process process("Own", 0, &lru);
 
     std::vector<Page> pages;
     pages.reserve(2000);
     pages.resize(65, {&process});
 
-    ErrorsControlling algo;
-    Proportional addAlgo;
 
 
-    Processor processor(50, &algo, &addAlgo);
-    OperatingSystems::Simulator::ProcessorInfo processorInfo(processor);
     processor.setFramesAllocationFrequency(10);
 
-    processor.addProcess(process);
+    processor.addProcess(*process);
     processor.allocateFramesAfterAdd();
 
     std::cout<<processorInfo.fullInfo();

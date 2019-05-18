@@ -15,6 +15,27 @@
 
 int main() {
 
+    using namespace OperatingSystems::Algorithms::FrameAllocation;
+
+    /*
+     * CONFIGURATION
+     */
+    const uint_fast64_t frames = 50;
+    std::shared_ptr<Algorithm> algorithm = std::make_shared<Algorithm>(new ErrorsControlling);
+    std::shared_ptr<Algorithm> addAlgorithm = std::make_shared<Algorithm>(new Proportional);
+    const uint_fast64_t allocationFrequency = frames;
+    const uint_fast64_t minPages = 100;
+    const uint_fast64_t maxPages = 300;
+    const uint_fast64_t callsGroups = 300;
+    const uint_fast64_t callsGroupCount = 5;
+    const uint_fast64_t callsGroupDeviation = 2;
+
+
+
+
+    /*
+     * Namespaces declaration
+     */
     using OperatingSystems::Processor::Process;
     using OperatingSystems::Processor::Processor;
     using OperatingSystems::Processor::Page;
@@ -23,8 +44,10 @@ int main() {
     using OperatingSystems::Algorithms::PageReplacement::LRU;
     using OperatingSystems::Simulator::ProcessWrapper;
 
-    using namespace OperatingSystems::Algorithms::FrameAllocation;
 
+    /*
+     * Processes names
+     */
     std::vector<std::string> names {
             "Docker", "MyApp", "OperatingSystems", "Test", "KDE", "NonWindowsApp", "Git", "Inkscape", "Gimp", "Firefox"
     };
@@ -32,10 +55,8 @@ int main() {
     /*
      * Declare processor
      */
-    ErrorsControlling algo;
-    Proportional addAlgo;
-    Processor processor(50, &algo, &addAlgo);
-    processor.setFramesAllocationFrequency(10);
+    Processor processor(frames, &*algorithm, &*addAlgorithm);
+    processor.setFramesAllocationFrequency(allocationFrequency);
 
     /*
      * Declare processes
@@ -72,25 +93,56 @@ int main() {
     }
 
     /*
+     * Add pages
+     */
+    std::vector<Page> pages;
+    for(ProcessWrapper & pw : processes) {
+
+        PagesGenerator pagesGenerator(*pw);
+        for(Page &p : pagesGenerator.generate(minPages, maxPages)) {
+            pages.emplace_back(p);
+        }
+
+    }
+
+    /*
+     * Allocate frames after addition of frames
+     */
+    processor.allocateFramesAfterAdd();
+
+    /*
      * Show info
      */
     OperatingSystems::Simulator::ProcessorInfo processorInfo(processor);
 
-    ProcessWrapper process("Own");
+    /*
+     * Resolve random calls
+     */
+    CallsGenerator callsGenerator;
+    callsGenerator.setPagesSource()
+    for(int i=0; i<callsGroups; i++) {
+
+        callsGenerator.randomCenter();
+        callsGenerator.deviation(callsGroupDeviation);
+        callsGenerator.population(callsGroupCount);
+
+        for(Call & call : callsGenerator.generate()) {
+            processor.resolveCall(call);
+        }
+
+    }
+
+
 
 //    LRU lru;
 //    Process process("Own", 0, &lru);
 
-    std::vector<Page> pages;
-    pages.reserve(2000);
-    pages.resize(65, {&process});
 
 
 
 
 
-    processor.addProcess(*process);
-    processor.allocateFramesAfterAdd();
+
 
     std::cout<<processorInfo.fullInfo();
 

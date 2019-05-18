@@ -9,6 +9,7 @@
 #include <OperatingSystems/Algorithms/FrameAllocation/Proportional.h>
 #include <OperatingSystems/Algorithms/FrameAllocation/WorkingSet.h>
 #include <OperatingSystems/Algorithms/FrameAllocation/ErrorsControlling.h>
+#include "ProcessorInfo.h"
 
 int main() {
 
@@ -32,13 +33,10 @@ int main() {
 
 
     Processor processor(50, &algo, &addAlgo);
+    OperatingSystems::Simulator::ProcessorInfo processorInfo(processor);
     processor.setFramesAllocationFrequency(10);
-    std::cout<<"Processor name: "<<algo.getProcessorName()<<":"<<std::endl;
-    std::cout<<"Frames: "<<processor.getFramesAmount()<<std::endl;
-    std::cout<<"Free Frames Amount: "<<processor.getFreeFramesAmount()<<std::endl;
-    std::cout<<"Frame allocation: ";
-    if(processor.getFramesAllocationFrequency() == -1) std::cout<<"never";
-    else std::cout<<"after "<<processor.getFramesAllocationFrequency()<<" calls"<<std::endl;
+
+    std::cout<<processorInfo.fullInfo();
 
     processor.addProcess("Test", 10);
     processor.addProcess("Test2", 20);

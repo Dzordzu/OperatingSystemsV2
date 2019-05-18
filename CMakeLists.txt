@@ -7,6 +7,7 @@ PROJECT ( OperatingSystems
 
 add_executable ( OperatingSystemsSimulator
 			include/OperatingSystems/Simulator/Main.cpp
+			src/Simulator/ProcessorInfo.cpp
 	#		src/Simulator/Visual.cpp
 	#		src/Simulator/API.cpp
 	#		src/Simulator/
@@ -22,7 +23,7 @@ add_library ( OperatingSystems
 			src/Algorithms/FrameAllocation/Equal.cpp
 			src/Algorithms/FrameAllocation/Proportional.cpp
 		    src/Algorithms/FrameAllocation/WorkingSet.cpp
-		src/Algorithms/FrameAllocation/ErrorsControlling.cpp
+			src/Algorithms/FrameAllocation/ErrorsControlling.cpp
 
 			src/Algorithms/PageReplacement/Algorithm.cpp
 			src/Algorithms/PageReplacement/LRU.cpp

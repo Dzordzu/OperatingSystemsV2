@@ -36,9 +36,6 @@ int main() {
     OperatingSystems::Simulator::ProcessorInfo processorInfo(processor);
     processor.setFramesAllocationFrequency(10);
 
-    processor.addProcess("Test", 10);
-    processor.addProcess("Test2", 20);
-    processor.addProcess("Test3", 50);
     processor.addProcess(process);
     processor.allocateFramesAfterAdd();
 

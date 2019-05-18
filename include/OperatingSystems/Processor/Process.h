@@ -57,6 +57,7 @@ namespace OperatingSystems {
             bool resolvePage(Page &page);
             int getFramesAmount();
             uint_fast32_t getWeight() const;
+            void setCounter(ErrorCounter *counter);
         };
     }
 

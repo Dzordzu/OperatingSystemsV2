@@ -13,7 +13,10 @@ const std::string &OperatingSystems::Processor::Process::getName() const {
 bool OperatingSystems::Processor::Process::resolvePage(OperatingSystems::Processor::Page &page) {
 
     if(this != page.getProcess()) throw std::logic_error("Algorithm has been bound to other process than given page");
-    if(frames.empty()) return true;
+    if(frames.empty()) {
+        counter->add();
+        return true;
+    }
 
     enum Mode {
         LOADED,
@@ -40,6 +43,7 @@ bool OperatingSystems::Processor::Process::resolvePage(OperatingSystems::Process
         return false;
     }
     else if(mode == REPLACE) {
+        counter->add();
         pageAlgorithm->replacePage(page);
         return true;
     }
@@ -64,4 +68,7 @@ int OperatingSystems::Processor::Process::getFramesAmount() {
 }
 uint_fast32_t OperatingSystems::Processor::Process::getWeight() const {
     return weight;
+}
+void OperatingSystems::Processor::Process::setCounter(OperatingSystems::Processor::ErrorCounter *counter) {
+    Process::counter = counter;
 }

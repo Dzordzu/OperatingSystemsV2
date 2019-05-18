@@ -22,18 +22,18 @@ int main() {
     /*
      * CONFIGURATION
      */
-    const uint_fast64_t frames = 50;
-    std::shared_ptr<Algorithm> algorithm(new ErrorsControlling);
-    std::shared_ptr<Algorithm> addAlgorithm(new Proportional());
+    const uint_fast64_t frames = 600;
+    std::shared_ptr<Algorithm> algorithm(new Proportional);
+    std::shared_ptr<Algorithm> addAlgorithm(new Proportional);
 
     std::cout<<(algorithm == nullptr);
 
-    const uint_fast64_t allocationFrequency = frames;
+    const uint_fast64_t allocationFrequency = 3000000;
     const uint_fast64_t minPages = 100;
     const uint_fast64_t maxPages = 300;
-    const uint_fast64_t callsGroups = 300;
-    const uint_fast64_t callsGroupCount = 100;
-    const uint_fast64_t callsGroupDeviation = 3;
+    const uint_fast64_t callsGroups = 3000;
+    const uint_fast64_t callsGroupCount = 1000;
+    const uint_fast64_t callsGroupDeviation = 10;
 
 
 
@@ -93,6 +93,7 @@ int main() {
     for(int i=0; i<processes.size(); i++) {
         processes[i]->setCounter(&errorCounters[i]);
     }
+    processor.setErrorCounter(&errorCounters[processes.size()]);
 
     /*
      * Add processes to processor
@@ -146,6 +147,8 @@ int main() {
 
     }
 
+    std::cout<<processorInfo.fullInfo()<<std::endl;
+
 
     for(ErrorCounter & ec : errorCounters) {
         std::cout<<ec.getCounterName()<<" "<<ec.getErrors()<<std::endl;
@@ -163,7 +166,7 @@ int main() {
 
 
 //
-//    std::cout<<processorInfo.fullInfo();
+
 //
 //
 //    for(Page & page : pages) {

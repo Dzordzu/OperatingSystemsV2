@@ -12,6 +12,7 @@
 #include <OperatingSystems/Processor/ErrorCounter.h>
 #include "ProcessorInfo.h"
 #include "ProcessWrapper.h"
+#include "PagesGenerator.h"
 
 int main() {
 
@@ -43,6 +44,7 @@ int main() {
     using OperatingSystems::Processor::ErrorCounter;
     using OperatingSystems::Algorithms::PageReplacement::LRU;
     using OperatingSystems::Simulator::ProcessWrapper;
+    using OperatingSystems::Simulator::PagesGenerator;
 
 
     /*
@@ -98,7 +100,7 @@ int main() {
     std::vector<Page> pages;
     for(ProcessWrapper & pw : processes) {
 
-        PagesGenerator pagesGenerator(*pw);
+        PagesGenerator pagesGenerator(p);
         for(Page &p : pagesGenerator.generate(minPages, maxPages)) {
             pages.emplace_back(p);
         }

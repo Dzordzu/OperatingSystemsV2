@@ -13,6 +13,7 @@
 #include <vector>
 
 #include "Frame.h"
+#include "ErrorCounter.h"
 
 #include <stdexcept>
 
@@ -40,6 +41,8 @@ namespace OperatingSystems {
             std::string name;
             std::vector<Frame> frames;
             uint_fast32_t weight = 0;
+
+            ErrorCounter * counter;
 
             /*
              * @XXX Dangerous zone: to fix conceptually

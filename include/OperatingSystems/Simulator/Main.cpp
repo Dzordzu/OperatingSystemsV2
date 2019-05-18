@@ -36,13 +36,13 @@ int main() {
     OperatingSystems::Simulator::ProcessorInfo processorInfo(processor);
     processor.setFramesAllocationFrequency(10);
 
-    std::cout<<processorInfo.fullInfo();
-
     processor.addProcess("Test", 10);
     processor.addProcess("Test2", 20);
     processor.addProcess("Test3", 50);
     processor.addProcess(process);
     processor.allocateFramesAfterAdd();
+
+    std::cout<<processorInfo.fullInfo();
 
 
     for(Page & page : pages) {

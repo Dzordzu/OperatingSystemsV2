@@ -63,7 +63,7 @@ OperatingSystems::Processor::Process::Process(const std::string &name, int frame
     this->pageAlgorithm->process = this;
     this->pageAlgorithm->frames = &frames;
 }
-int OperatingSystems::Processor::Process::getFramesAmount() {
+int OperatingSystems::Processor::Process::getFramesAmount() const {
     return frames.size();
 }
 uint_fast32_t OperatingSystems::Processor::Process::getWeight() const {

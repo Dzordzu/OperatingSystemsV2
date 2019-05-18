@@ -70,3 +70,7 @@ int OperatingSystems::Processor::Processor::getFramesAllocationFrequency() const
 void OperatingSystems::Processor::Processor::setErrorCounter(OperatingSystems::Processor::ErrorCounter *errorCounter) {
     Processor::errorCounter = errorCounter;
 }
+const std::vector<std::reference_wrapper<OperatingSystems::Processor::Process>>
+OperatingSystems::Processor::Processor::getProcesses() const {
+    return processes;
+}

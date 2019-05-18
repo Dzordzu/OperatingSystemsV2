@@ -55,7 +55,7 @@ namespace OperatingSystems {
             explicit Process(const std::string &name, int framesAmount, PagesAlgorithm *pageAlgorithm);
             const std::string &getName() const;
             bool resolvePage(Page &page);
-            int getFramesAmount();
+            int getFramesAmount() const;
             uint_fast32_t getWeight() const;
             void setCounter(ErrorCounter *counter);
         };

@@ -60,6 +60,7 @@ namespace OperatingSystems {
             int getFramesAllocationFrequency() const;
             void setErrorCounter(ErrorCounter *errorCounter);
             const std::string name = "MASAKRATOR V1488XD (controller JB2GMD)";
+            const std::vector<std::reference_wrapper<Process>> getProcesses() const;
 
 
         };

@@ -21,6 +21,7 @@ namespace OperatingSystems {
             const std::string frames() const;
             const std::string freeFrames() const;
             const std::string allocationFrequency() const;
+            const std::string processes() const;
             const std::string fullInfo() const;
         };
 

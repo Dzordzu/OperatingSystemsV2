@@ -11,9 +11,6 @@ OperatingSystems::Simulator::ProcessWrapper::ProcessWrapper(const std::string na
 OperatingSystems::Processor::Process& OperatingSystems::Simulator::ProcessWrapper::operator*() {
     return *process;
 }
-OperatingSystems::Simulator::ProcessWrapper::Process *OperatingSystems::Simulator::ProcessWrapper::operator&() {
-    return &*process;
-}
 OperatingSystems::Simulator::ProcessWrapper::Process *OperatingSystems::Simulator::ProcessWrapper::operator->() {
     return &*process;
 }

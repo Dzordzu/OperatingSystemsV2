@@ -2,6 +2,7 @@
 // Created by dzordzu on 5/16/19.
 //
 
+#include <iostream>
 #include "../../include/OperatingSystems/Processor/Process.h"
 
 const std::string &OperatingSystems::Processor::Process::getName() const {
@@ -13,6 +14,7 @@ const std::string &OperatingSystems::Processor::Process::getName() const {
 bool OperatingSystems::Processor::Process::resolvePage(OperatingSystems::Processor::Page &page) {
 
     if(this != page.getProcess()) throw std::logic_error("Algorithm has been bound to other process than given page");
+
     if(frames.empty()) {
         if(errorCounter != nullptr) errorCounter->add();
         return true;

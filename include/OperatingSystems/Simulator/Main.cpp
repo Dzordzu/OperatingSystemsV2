@@ -23,7 +23,7 @@ int main() {
      * CONFIGURATION
      */
     const uint_fast64_t frames = 50;
-    std::shared_ptr<Algorithm> algorithm(new ErrorsControlling());
+    std::shared_ptr<Algorithm> algorithm(new ErrorsControlling);
     std::shared_ptr<Algorithm> addAlgorithm(new Proportional());
 
     std::cout<<(algorithm == nullptr);
@@ -32,8 +32,8 @@ int main() {
     const uint_fast64_t minPages = 100;
     const uint_fast64_t maxPages = 300;
     const uint_fast64_t callsGroups = 300;
-    const uint_fast64_t callsGroupCount = 5;
-    const uint_fast64_t callsGroupDeviation = 2;
+    const uint_fast64_t callsGroupCount = 100;
+    const uint_fast64_t callsGroupDeviation = 3;
 
 
 
@@ -108,16 +108,21 @@ int main() {
     for(ProcessWrapper & pw : processes) {
 
         PagesGenerator pagesGenerator(pw);
-        for(Page &p : pagesGenerator.generate(minPages, maxPages)) {
+        for(Page p : pagesGenerator.generate(minPages, maxPages)) {
             pages.emplace_back(p);
         }
 
     }
 
+
+
+
+
     /*
      * Allocate frames after addition of frames
      */
     processor.allocateFramesAfterAdd();
+
 
     /*
      * Show info
@@ -142,6 +147,11 @@ int main() {
     }
 
 
+    for(ErrorCounter & ec : errorCounters) {
+        std::cout<<ec.getCounterName()<<" "<<ec.getErrors()<<std::endl;
+    }
+
+
 
 //    LRU lru;
 //    Process process("Own", 0, &lru);
@@ -152,13 +162,13 @@ int main() {
 
 
 
-
-    std::cout<<processorInfo.fullInfo();
-
-
-    for(Page & page : pages) {
-        processor.resolveCall(Call(&page));
-    }
+//
+//    std::cout<<processorInfo.fullInfo();
+//
+//
+//    for(Page & page : pages) {
+//        processor.resolveCall(Call(&page));
+//    }
 
 
 
@@ -167,10 +177,10 @@ int main() {
 
 //    Page page(&*processor.processesVal.begin());
 //    processor.allocateFramesAfterAdd();
-
-    for(Process &p : processor.processes) {
-        std::cout<<p.getName()<<" "<<p.getFramesAmount()<<std::endl;
-    }
+//
+//    for(Process &p : processor.processes) {
+//        std::cout<<p.getName()<<" "<<p.getFramesAmount()<<std::endl;
+//    }
 
 //    Call call(&page);
 //    processor.resolveCall(call);

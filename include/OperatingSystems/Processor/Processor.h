@@ -49,7 +49,7 @@ namespace OperatingSystems {
         public:
             Processor(int framesAmount, FramesAlgorithm *framesAlgorithm, FramesAlgorithm *framesAlgorithmOnAdd);
             Processor(int framesAmount, FramesAlgorithm *framesAlgorithm) : Processor(framesAmount, framesAlgorithm, framesAlgorithm) {}
-            virtual void resolveCall(Call call);
+            virtual void resolveCall(Call & call);
             void allocateFrames();
             void allocateFramesAfterAdd();
             void addProcess(const std::string name, int pagesAmount);

@@ -23,7 +23,6 @@ namespace OperatingSystems {
             explicit ProcessWrapper(const std::string name);
 
             Process& operator*();
-            Process* operator&();
             Process* operator->();
 
         };

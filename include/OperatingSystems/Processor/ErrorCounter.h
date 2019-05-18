@@ -18,6 +18,9 @@ namespace OperatingSystems {
             void add(int amount = 1) { errors+=amount; }
             uint_fast64_t getErrors() const {return errors;}
             void reset() {errors = 0;}
+            const std::string &getCounterName() const {
+                return counterName;
+            }
         };
     }
 }

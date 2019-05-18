@@ -25,8 +25,10 @@ std::vector<OperatingSystems::Processor::Call> OperatingSystems::Simulator::Call
     std::normal_distribution<> dist(0, deviation);
 
     for(int i=0; i<population; i++) {
-        uint_fast32_t index = ((int)(dist(mt)) + center)%sources.size();
+        uint_fast16_t index = (((int)(dist(mt)) + center))%sources.size();
 
         calls.emplace_back(Call(&sources[index]));
     }
+
+    return calls;
 }

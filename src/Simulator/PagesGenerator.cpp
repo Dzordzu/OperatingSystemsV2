@@ -15,7 +15,7 @@ OperatingSystems::Simulator::PagesGenerator::generate(uint_fast64_t min, uint_fa
 
     std::vector<Processor::Page> result;
     for(uint_fast64_t i=0; i<dist(mt); i++) {
-        result.emplace_back(Processor::Page(&process));
+        result.emplace_back(Processor::Page(&*process));
     }
     return result;
 }

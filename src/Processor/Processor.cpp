@@ -5,9 +5,14 @@
 #include "OperatingSystems/Processor/Processor.h"
 //#include <iostream>
 
-void OperatingSystems::Processor::Processor::resolveCall(Call call) {
+void OperatingSystems::Processor::Processor::resolveCall(Call & call) {
+
+    if(&call == nullptr) throw std::logic_error("Call should never be nullptr");
 
     framesAlgorithm->alwaysRun(*call.getPage());
+
+    if(call.getPage() == nullptr) throw std::logic_error("Page pointer should never (ever be nullptr)");
+    if(call.getPage()->getProcess() == nullptr) throw std::logic_error("Page->process pointer should never (ever be nullptr)");
 
     if(call.getPage()->getProcess()->resolvePage(*call.getPage())) {
         if(errorCounter != nullptr) errorCounter->add();

@@ -10,6 +10,7 @@ void OperatingSystems::Processor::Processor::resolveCall(Call call) {
     framesAlgorithm->alwaysRun(*call.getPage());
 
     if(call.getPage()->getProcess()->resolvePage(*call.getPage())) {
+        if(errorCounter != nullptr) errorCounter->add();
         framesAlgorithm->pageError(*call.getPage());
     }
 

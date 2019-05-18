@@ -44,6 +44,8 @@ namespace OperatingSystems {
             int framesAllocationFrequency = 2; // calls to allocation
             int allocationsCounter = 0;
 
+            ErrorCounter * errorCounter = nullptr;
+
         public:
             Processor(int framesAmount, FramesAlgorithm *framesAlgorithm, FramesAlgorithm *framesAlgorithmOnAdd);
             Processor(int framesAmount, FramesAlgorithm *framesAlgorithm) : Processor(framesAmount, framesAlgorithm, framesAlgorithm) {}

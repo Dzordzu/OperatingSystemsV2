@@ -14,7 +14,7 @@ bool OperatingSystems::Processor::Process::resolvePage(OperatingSystems::Process
 
     if(this != page.getProcess()) throw std::logic_error("Algorithm has been bound to other process than given page");
     if(frames.empty()) {
-        counter->add();
+        errorCounter->add();
         return true;
     }
 
@@ -43,7 +43,7 @@ bool OperatingSystems::Processor::Process::resolvePage(OperatingSystems::Process
         return false;
     }
     else if(mode == REPLACE) {
-        counter->add();
+        errorCounter->add();
         pageAlgorithm->replacePage(page);
         return true;
     }
@@ -70,5 +70,5 @@ uint_fast32_t OperatingSystems::Processor::Process::getWeight() const {
     return weight;
 }
 void OperatingSystems::Processor::Process::setCounter(OperatingSystems::Processor::ErrorCounter *counter) {
-    Process::counter = counter;
+    Process::errorCounter = counter;
 }

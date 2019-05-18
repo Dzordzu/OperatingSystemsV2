@@ -42,7 +42,7 @@ namespace OperatingSystems {
             std::vector<Frame> frames;
             uint_fast32_t weight = 0;
 
-            ErrorCounter * counter;
+            ErrorCounter * errorCounter;
 
             /*
              * @XXX Dangerous zone: to fix conceptually

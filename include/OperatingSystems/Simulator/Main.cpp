@@ -23,17 +23,17 @@ int main() {
      * CONFIGURATION
      */
     const uint_fast64_t frames = 600;
-    std::shared_ptr<Algorithm> algorithm(new Proportional);
+    std::shared_ptr<Algorithm> algorithm(new WorkingSet);
     std::shared_ptr<Algorithm> addAlgorithm(new Proportional);
 
     std::cout<<(algorithm == nullptr);
 
-    const uint_fast64_t allocationFrequency = 3000000;
+    const uint_fast64_t allocationFrequency = 30000;
     const uint_fast64_t minPages = 100;
     const uint_fast64_t maxPages = 300;
-    const uint_fast64_t callsGroups = 3000;
+    const uint_fast64_t callsGroups = 300;
     const uint_fast64_t callsGroupCount = 1000;
-    const uint_fast64_t callsGroupDeviation = 10;
+    const uint_fast64_t callsGroupDeviation = 30;
 
 
 

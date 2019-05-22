@@ -17,8 +17,14 @@ void OperatingSystems::Algorithms::FrameAllocation::WorkingSet::allocateFrames()
         usages.at(p.getProcess())++;
     }
 
+    int usagesSize = usages.size();
+
+    for(Process p : this->getProcesses()) {
+        setFramesAmount(p, 0);
+    }
+
     for(auto usage : usages) {
-        setFramesAmount(*usage.first, usage.second);
+        setFramesAmount(*usage.first, ((double)usage.second/(double)usagesSize)*this->processor->getFramesAmount());
     }
 
     this->recentPages.clear();

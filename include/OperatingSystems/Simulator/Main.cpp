@@ -33,7 +33,7 @@ int main() {
     const uint_fast64_t maxPages = 300;
     const uint_fast64_t callsGroups = 300;
     const uint_fast64_t callsGroupCount = 1000;
-    const uint_fast64_t callsGroupDeviation = 30;
+    const uint_fast64_t callsGroupDeviation = 3;
 
 
 

@@ -2,6 +2,7 @@
 // Created by dzordzu on 5/17/19.
 //
 
+
 #include "OperatingSystems/Algorithms/FrameAllocation/ErrorsControlling.h"
 
 void OperatingSystems::Algorithms::FrameAllocation::ErrorsControlling::allocateFrames() {
@@ -16,6 +17,15 @@ void OperatingSystems::Algorithms::FrameAllocation::ErrorsControlling::allocateF
             setFramesAmount(p, p.getFramesAmount()+guaranteedStepAddition);
             setFramesAmount(p, (int)(p.getFramesAmount()*(1+stepAddition)));
         }
+    }
+
+    std::random_device rd;
+    std::mt19937 mt(rd());
+    std::uniform_int_distribution<int> dist(0, getProcesses().size()-1);
+
+    while(processor->getFreeFramesAmount() > 0) {
+        Process & p = getProcesses()[dist(mt)];
+        setFramesAmount(p, p.getFramesAmount()+1);
     }
 
 }
